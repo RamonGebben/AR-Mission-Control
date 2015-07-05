@@ -1,0 +1,28 @@
+<!doctype html>
+<title>AR video feed</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>
+var startStream = function(){
+  $('#buffer').load(function(){
+      $('#video').attr('src', this.src);
+      this.src = 'http://localhost:8080?no-cache=' + new Date().getTime();
+  }).trigger('load');
+};
+
+var tryStream = function(){
+    $.get('http://localhost:8080', function( data ){
+    if( data ){
+      startStream();
+    }else {
+      tryStream();
+    }
+  })
+};
+</script>
+
+<div class="video-container">
+    <img class="video" id="buffer" alt="" />
+	<img class="video" id="video" alt="" />
+</div>
+

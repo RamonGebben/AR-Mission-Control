@@ -2,6 +2,7 @@ require("ps3.js");
 
 var arDrone  = require("ar-drone"),
     client   = arDrone.createClient(),
+    http     = require('http'),
     angle    = 128,
     speed    = 0.15;
 
@@ -89,4 +90,29 @@ function on(type, value) {
     }
 }
 
-on();
+var startVideoStream = function(){
+    var lastPng;
+    pngStream
+      .on('error', console.log )
+      .on('data', function(pngBuffer) {
+        lastPng = pngBuffer;
+      });
+
+    var server = http.createServer(function(req, res) {
+      if (!lastPng) {
+        res.writeHead(503);
+        res.end('Did not receive any png data yet.');
+        return;
+      }
+
+      res.writeHead(200, {'Content-Type': 'image/png'});
+      res.end(lastPng);
+    });
+
+    server.listen(8080, function() {
+      console.log('Serving latest png on port 8080 ...');
+    });
+
+}
+// Start all services
+on(); startVideoStream();
