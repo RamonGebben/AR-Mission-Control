@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>AR Mission Controll</title>
+    <link rel="stylesheet" href="../css/font.css">
+    <link rel="stylesheet" href="../css/index.css">
+  </head>
+  <body>
+    <script src="../js/controls.js"></script>
+    <script src="../js/png-stream.js"></script>
+    <div class="video-container">
+	    <img class="video" id="buffer" alt="" />
+		<img class="video" id="video" alt="" />
+	</div>
+
+	<div class="controls">
+		<div id="enable_video">Enable video</div>
+		<div class="control-block right">
+			<div class="button" data-method="up" id="up"></div>
+			<div class="button" data-method="down" id="down"></div>
+		</div>
+		<div class="control-block left">
+			<div class="button" data-method="counter_clockwise" id="counter_clockwise"></div>
+			<div class="button" data-method="forward" id="forward"></div>
+			<div class="button" data-method="clockwise" id="clockwise"></div>
+			<div class="button" data-method="left" id="left"></div>
+			<div class="button" data-method="right" id="right"></div>
+			<div class="button" data-method="backward" id="backward"></div>
+		</div>
+		<div class="primary-controls">
+			<div class="button wide" data-method="takeoff" id="takeoff"></div>
+			<div class="button wide" data-method="land" id="land"></div>
+		</div>
+		<div class="cf"></div>
+	</div>
+
+  </body>
+</html>
