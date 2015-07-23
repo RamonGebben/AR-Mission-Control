@@ -1,11 +1,6 @@
 var app = require('app');  // Module to control application life.
 var BrowserWindow = require('browser-window');  // Module to create native browser window.
-var client = require('./client.js')
-var pngStream = client.getPngStream();
-var http = require('http');
-
-console.log('Connecting png stream ...');
-
+var drone = require('./drone')
 // Report crashes to our server.
 require('crash-reporter').start();
 
@@ -40,32 +35,6 @@ app.on('ready', function() {
     mainWindow = null;
   });
 
-  startVideoStream();
+  // drone.on();
 
 });
-
-
-var startVideoStream = function(){
-	var lastPng;
-	pngStream
-	  .on('error', console.log )
-	  .on('data', function(pngBuffer) {
-	    lastPng = pngBuffer;
-	  });
-
-	var server = http.createServer(function(req, res) {
-	  if (!lastPng) {
-	    res.writeHead(503);
-	    res.end('Did not receive any png data yet.');
-	    return;
-	  }
-
-	  res.writeHead(200, {'Content-Type': 'image/png'});
-	  res.end(lastPng);
-	});
-
-	server.listen(8080, function() {
-	  console.log('Serving latest png on port 8080 ...');
-	});
-
-}

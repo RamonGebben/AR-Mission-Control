@@ -1,7 +1,7 @@
 <!doctype html>
 <title>AR video feed</title>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="js/jquery.min.js"></script>
 <script>
 var startStream = function(){
   $('#buffer').load(function(){
@@ -11,14 +11,13 @@ var startStream = function(){
 };
 
 var tryStream = function(){
+
+
     $.get('http://localhost:8080', function( data ){
-    if( data ){
-      startStream();
-    }else {
-      tryStream();
-    }
-  })
+    	console.log( data );
+  }).error( tryStream ).success( startStream )
 };
+tryStream();
 </script>
 
 <div class="video-container">

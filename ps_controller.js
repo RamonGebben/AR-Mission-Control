@@ -2,6 +2,7 @@ require("ps3.js");
 
 var arDrone  = require("ar-drone"),
     client   = arDrone.createClient(),
+    pngStream= client.getPngStream(),
     http     = require('http'),
     angle    = 128,
     speed    = 0.15;
@@ -99,6 +100,7 @@ var startVideoStream = function(){
       });
 
     var server = http.createServer(function(req, res) {
+      res.setHeader("Access-Control-Allow-Origin", "*");
       if (!lastPng) {
         res.writeHead(503);
         res.end('Did not receive any png data yet.');

@@ -14,10 +14,8 @@ var startStream = function(){
 
 var tryStream = function(){
     $.get('http://localhost:8080', function( data ){
-    if( data ){
-      startStream();
-    }else {
-      tryStream();
-    }
-  })
+      console.log( data );
+  }).error( tryStream ).success( startStream )
 };
+
+tryStream();
