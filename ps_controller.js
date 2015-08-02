@@ -2,21 +2,21 @@ require("ps3.js");
 
 var arDrone  = require("ar-drone"),
     client   = arDrone.createClient(),
-    pngStream= client.getPngStream(),
+    // pngStream= client.getPngStream(),
     http     = require('http'),
     angle    = 128,
     speed    = 0.15;
 
-client.config('control:altitude_max', 200000)
-client.config('control:control_vz_max', 2000)
-client.config('control:control_yaw', 6.0)
-client.config('control:euler_angle_max', 0.52)
+client.config('control:altitude_max', 10000000);
+client.config('control:control_vz_max', 2000);
+client.config('control:control_yaw', 8.0);
+client.config('control:euler_angle_max', 0.52);
 
-client.config('control:outdoor', false)
-client.config('control:flight_without_shell', false)
+client.config('control:outdoor', true);
+client.config('control:flight_without_shell', false);
 
 console.log("Feel free to play with configuration.");
-console.log("Controls:")
+console.log("Controls:");
 console.log("  Left stick: front/back, left/right");
 console.log("  Right stick: up/down, counterclockwise/clockwise");
 console.log("  O: Takeoff");
@@ -115,6 +115,6 @@ var startVideoStream = function(){
       console.log('Serving latest png on port 8080 ...');
     });
 
-}
+};
 // Start all services
-on(); startVideoStream();
+on();
